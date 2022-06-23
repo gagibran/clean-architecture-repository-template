@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=FoodOrderingApp
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5432:5432
+
+  backend:
+    image: mcr.microsoft.com/dotnet/sdk:6.0-focal
+    ports:
+      - 5000:5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./src/API/:/API/
+      - ./src/Core/:/Core/
+      - ./src/Infrastructure/:/Infrastructure/
+      - /API/bin/
+      - /API/obj/
+    working_dir: /API/
+    command: dotnet watch run
+    depends_on:
+      - database
+
+  frontend:
+    image: node:18-slim
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./src/client-app/:/app/
+      - /app/node_modules/
+    working_dir: /app/
+    command: bash -c "npm install && npm start"
+    depends_on:
+      - backend
