@@ -24,7 +24,7 @@ This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template
 
 ## Installation
 
-This package is hosted on NuGet and can be installed by simply running the command:
+This package is hosted on [NuGet](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template/1.0.0) and can be installed by simply running the command:
 
 `dotnet new --install Gagibran.CleanArchRepo.Template`
 
