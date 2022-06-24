@@ -16,8 +16,8 @@ jobs:
       - uses: nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
-          
-      - name: PackageTemplate
+
+      - name: Package the Template
         run: nuget pack CleanArchRepoTemplate.nuspec -NoDefaultExcludes
 
       - name: Publish to nuget.org
