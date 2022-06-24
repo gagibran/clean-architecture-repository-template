@@ -1,0 +1,46 @@
+name: Clean Architecture Build Job
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  dotnet_build:
+    name: Build .NET 6 Projects
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout to Branch
+      uses: actions/checkout@v3
+
+    - name: Setup .NET 6.0.x
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore .NET Dependencies
+      run: dotnet restore
+
+    - name: Build .NET
+      run: dotnet build --no-restore
+
+  nodejs_build:
+    name: Build Node.js 16.x Projects
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/client-app
+
+    steps:
+    - name: Setup Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
+    - name: Install Node.js
+      run: npm ci
+
+    - name: Build Node.js
+      run: npm run build
