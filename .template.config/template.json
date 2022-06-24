@@ -19,12 +19,25 @@
     "type": "project"
   },
   "preferNameDirectory": true,
-  "description": "Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern using unit of work.",
+  "description": "Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.",
   "symbols": {
+    "solutionName" : {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "Sets the solution name.",
+      "fileRename": "CleanArchRepoTemplate",
+      "replaces": "CleanArchRepoTemplate"
+    },
     "enableSwagger": {
       "type": "parameter",
       "datatype": "bool",
       "description": "Enables Swagger.",
+      "defaultValue": "true"
+    },
+    "configureUnitOfWork": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Configures the unit of work pattern",
       "defaultValue": "true"
     }
   },
@@ -44,6 +57,13 @@
           "condition": "(!enableSwagger)",
           "exclude": [
             "src/API/APISwagger.csproj"
+          ]
+        },
+        {
+          "condition": "(!configureUnitOfWork)",
+          "exclude": [
+            "src/Core/Interfaces/IUnitOfWork.cs",
+            "src/Infrastructure/Repositories/UnitOfWork.cs"
           ]
         }
       ]

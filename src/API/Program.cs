@@ -1,7 +1,9 @@
-using Core.Interfaces;
-using Infrastructure.Data;
-using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Data;
+#if (configureUnitOfWork)
+using Core.Interfaces;
+using Infrastructure.Repositories;
+#endif
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 var developmentCorsPolicy = "DevelopmentCorsPolicy";
@@ -12,7 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<ApplicationDbContext>(options => {
     options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationDatabase"));
 });
+#if (configureUnitOfWork)
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+#endif
 if (builder.Environment.IsDevelopment())
 {
 #if (enableSwagger)
