@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Gabriel Alvares Gibran",
+  "classifications": [
+    "Clean Architecture",
+    "Docker Compose 1.29.2",
+    "React 18",
+    ".NET 6",
+    "PostgreSQL 14",
+    "Repository Pattern",
+    "Unit Of Work"
+  ],
+  "identity": "Gagibran.CleanArchRepo.Template",
+  "name": "Clean Architecture With Repository Pattern",
+  "shortName": "cleanarchrepo",
+  "sourceName": "CleanArchRepoTemplate",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "description": "Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern using unit of work.",
+  "symbols": {
+    "enableSwagger": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Enables Swagger.",
+      "defaultValue": "true"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(enableSwagger)",
+          "exclude": [
+            "src/API/API.csproj"
+          ],
+          "rename": {
+            "src/API/APISwagger.csproj": "src/API/API.csproj"
+          }
+        },
+        {
+          "condition": "(!enableSwagger)",
+          "exclude": [
+            "src/API/APISwagger.csproj"
+          ]
+        }
+      ]
+    }
+  ]
+}

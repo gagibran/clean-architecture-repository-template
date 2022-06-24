@@ -4,7 +4,7 @@ services:
   database:
     image: postgres:14
     environment:
-      - POSTGRES_DB=DatabaseName
+      - POSTGRES_DB=CleanArchRepoTemplate
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
     ports:

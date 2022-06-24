@@ -15,7 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 if (builder.Environment.IsDevelopment())
 {
+#if (enableSwagger)
     builder.Services.AddSwaggerGen();
+#endif
     builder.WebHost.UseUrls("http://+:5000"); // HTTPS doesn't work very well with Docker.
     builder.Services.AddCors(options =>
     {
@@ -37,8 +39,10 @@ IServiceProvider services = scope.ServiceProvider;
 if (app.Environment.IsDevelopment())
 {
     app.UseCors(developmentCorsPolicy);
+#if (enableSwagger)
     app.UseSwagger();
     app.UseSwaggerUI();
+#endif
     ApplicationDbContext appDbContext = services.GetRequiredService<ApplicationDbContext>();
     try
     {

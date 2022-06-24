@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Gagibran.CleanArchRepo.Template</id>
+    <title>Clean Architecture With Repository Pattern</title>
+    <version>1.0.0</version>
+    <description>Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern using unit of work.</description>
+    <authors>Gabriel Alvares Gibran</authors>
+    <language>en-US</language>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/gagibran/clean-architecture-repository-template</projectUrl>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <tags>Clean Architecture Docker Compose 1.29.2 React 18 .NET 6 PostgreSQL 14 Repository Pattern Unit Of Work</tags>
+    <readme>README.md</readme>
+  </metadata>
+  <files>
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\node_modules\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore" />
+    <file src="README.md" />
+  </files>
+</package>
