@@ -1,5 +1,5 @@
 [![Clean Architecture Build Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Clean%20Architecture%20Build%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
-[![Publish Template to NuGet Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Publish%20Template%20to%20Nuget%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
+[![Publish Template to NuGet Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Publish%20Template%20to%20NuGet%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
 
 # Clean Architecture Repository and Unit of Work Template
 
@@ -24,7 +24,7 @@ This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template
 
 ## Installation
 
-This package is hosted on [NuGet](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template/1.0.0) and can be installed by simply running the command:
+This package is hosted on [NuGet](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template) and can be installed by simply running the command:
 
 `dotnet new --install Gagibran.CleanArchRepo.Template`
 
