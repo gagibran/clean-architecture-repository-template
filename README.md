@@ -1,7 +1,7 @@
 [![Clean Architecture Build Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Clean%20Architecture%20Build%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
 [![Publish Template to NuGet Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Publish%20Template%20to%20NuGet%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
-[![NuGet](https://img.shields.io/nuget/v/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
-[![NuGet](https://img.shields.io/nuget/dt/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
+[![NuGet Version](https://img.shields.io/nuget/v/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
 
 # Clean Architecture Repository and Unit of Work Template
 
@@ -11,18 +11,21 @@ It uses PostgreSQL 14, React 18 (with TypeScript) and .NET 6 and it comes with a
 
 This app was developed using docker-compose version 1.29.2.
 
+Give it a star if you like it! Feel free to contribute.
+
 ## Table of contents
 
 - [Motivation](#motivation)
 - [Installation](#installation)
 - [Running and options](#running-and-options)
+- [Running the created project](#running-the-created-project)
 - [To do](#to-do)
 
 ## Motivation
 
 I created this template so that I don't have to write a lot of boilerplate code when I want to create a new project and I wanted to share my approach to this architecture.
 
-This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template](https://github.com/ardalis/CleanArchitecture). Checkout his [YouTube channel](https://www.youtube.com/c/Ardalis) for more information on this architecture.
+This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template](https://github.com/ardalis/CleanArchitecture). Check out his [YouTube channel](https://www.youtube.com/c/Ardalis) for more information on this architecture.
 
 ## Installation
 
@@ -52,10 +55,21 @@ In order to disabled these options, the following flags are available: `-e` or `
 
 Use `dotnet new cleanarchrepo --help` to see the list of parameters and more information.
 
+## Running the created project
+
+Once your project has been generated with the template, go the the project's root directory and execute the command:
+
+`docker-compose -f docker-compose-development.yml up`
+
+To start the application. The front end URL will be: http://localhost:3000. If you enabled Swagger during the template creation, you can access it going to the following URL: http://localhost:5000/swagger.
+
+To terminate the application, go the the project's root directory and run:
+
+`docker-compose -f docker-compose-development.yml down`
+
 ## To do
 
-Currently, the project does not contain a unit tests project. This will be added soon.
-
-I will also add Angular support and an option to configure different databases.
-
-Finally, I will be adding a production configuration with Dockerfiles and a production Docker Compose file.
+- Currently, the project does not contain a unit tests project. This will be added soon.
+- I will also add Angular support and an option to configure different databases.
+- I will try to get the project to work with HTTPS on Docker.
+- Finally, I will be adding a production configuration with Dockerfiles and a production Docker Compose file.
