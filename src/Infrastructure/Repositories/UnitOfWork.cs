@@ -1,6 +1,3 @@
-using Core.Interfaces;
-using Infrastructure.Data;
-
 namespace Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
