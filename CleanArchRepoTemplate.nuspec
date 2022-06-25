@@ -3,7 +3,7 @@
   <metadata>
     <id>Gagibran.CleanArchRepo.Template</id>
     <title>Clean Architecture With Repository Pattern</title>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <description>
       Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.
     </description>

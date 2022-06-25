@@ -1,5 +1,7 @@
 [![Clean Architecture Build Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Clean%20Architecture%20Build%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
 [![Publish Template to NuGet Job](https://github.com/gagibran/clean-architecture-repository-template/workflows/Publish%20Template%20to%20NuGet%20Job/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
+[![NuGet](https://img.shields.io/nuget/v/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
+[![NuGet](https://img.shields.io/nuget/dt/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
 
 # Clean Architecture Repository and Unit of Work Template
 
