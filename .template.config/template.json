@@ -43,6 +43,21 @@
   },
   "sources": [
     {
+      "exclude": [
+        "README.md",
+        "LICENSE",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        ".vs/**/*",
+        ".github/**/*",
+        ".vscode/**/*",
+        "**/*.lock.json",
+        "**/*.gitignore",
+        "**/.git/**",
+        "*.nuspec",
+        "**/node_modules/**"
+      ],
       "modifiers": [
         {
           "condition": "(enableSwagger)",
@@ -58,7 +73,8 @@
           "condition": "(!enableSwagger)",
           "exclude": [
             "src/API/APISwagger.csproj",
-            "src/API/Properties/launchSettingsSwagger.json"
+            "src/API/Properties/launchSettingsSwagger.json",
+            "src/API/SwaggerSchemas/UserSchemaFilter.cs"
           ]
         },
         {

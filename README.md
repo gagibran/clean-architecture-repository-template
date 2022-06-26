@@ -9,7 +9,7 @@
 
 It uses PostgreSQL 14, React 18 (with TypeScript) and .NET 6 and it comes with a docker-compose file configured for development.
 
-This app was developed using docker-compose version 1.29.2.
+This app was developed using Docker version 20.10.16 and Docker Compose version 1.29.2.
 
 Give it a star if you like it! Feel free to contribute.
 
@@ -19,6 +19,8 @@ Give it a star if you like it! Feel free to contribute.
 - [Installation](#installation)
 - [Running and options](#running-and-options)
 - [Running the created project](#running-the-created-project)
+    - [Development](#development)
+- [Adding migrations](#adding-migrations)
 - [To do](#to-do)
 
 ## Motivation
@@ -57,6 +59,10 @@ Use `dotnet new cleanarchrepo --help` to see the list of parameters and more inf
 
 ## Running the created project
 
+The project is configured to run inside Docker containers.
+
+### Development
+
 Once your project has been generated with the template, go the the project's root directory and execute the command:
 
 `docker-compose -f docker-compose-development.yml up`
@@ -65,9 +71,17 @@ To start the application. The front end URL will be: http://localhost:3000. If y
 
 It comes with a default `User` entity so that you can test the CRUD operations right out of the box by either using Swagger or an API platform, such as [Postman](https://www.postman.com/).
 
-To terminate the application and delete the created images, containers, networks and volumes, go the the project's root directory and run:
+To terminate the application and delete the created images, containers, networks and volumes, hit `Ctrl+C` on your running terminal to stop the application, go the the project's root directory and run:
 
 `docker-compose -f docker-compose-development.yml down -v`
+
+## Adding migrations
+
+To add a migration, go to the project's root directory and run:
+
+`dotnet ef migrations add <migration-name> -p .\src\Infrastructure\ -s .\src\API\ -o .\Data\Migrations\`
+
+No need to install the `dotnet-global` tool, because it is already in the `.\.config\dotnet-tools.json` file.
 
 ## To do
 

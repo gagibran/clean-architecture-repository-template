@@ -25,6 +25,7 @@ public class UserRepository : Repository<User>, IUserRepository
         foundUser.DateOfBirth = user.DateOfBirth;
         foundUser.Address1 = user.Address1;
         foundUser.Address2 = user.Address2;
+        foundUser.Address2 = user.ZipCode;
         foundUser.State = user.State;
         foundUser.UpdatedAt = DateTime.UtcNow;
         _applicationDbContext.Users.Update(foundUser);

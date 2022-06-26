@@ -2,15 +2,22 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Gagibran.CleanArchRepo.Template</id>
-    <title>Clean Architecture With Repository Pattern</title>
-    <version>1.1.0</version>
-    <description>
-      Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.
-    </description>
     <authors>Gabriel Alvares Gibran</authors>
     <language>en-US</language>
+    <title>Clean Architecture With Repository Pattern</title>
+    <version>1.1.0</version>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/gagibran/clean-architecture-repository-template</projectUrl>
+    <repository type="git" url="https://github.com/gagibran/clean-architecture-repository-template.git" branch="main" />
+    <description>
+      Clean architecture template using React, .NET 6 and PostgreSQL.
+    </description>
+      <summary>
+      Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.
+    </summary>
+    <releaseNotes>
+      Added a default user entity (and FluentValidation) as an example and added a custom user schema for Swagger.
+    </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
