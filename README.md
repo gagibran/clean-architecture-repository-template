@@ -63,9 +63,11 @@ Once your project has been generated with the template, go the the project's roo
 
 To start the application. The front end URL will be: http://localhost:3000. If you enabled Swagger during the template creation, you can access it going to the following URL: http://localhost:5000/swagger.
 
-To terminate the application, go the the project's root directory and run:
+It comes with a default `User` entity so that you can test the CRUD operations right out of the box by either using Swagger or an API platform, such as [Postman](https://www.postman.com/).
 
-`docker-compose -f docker-compose-development.yml down`
+To terminate the application and delete the created images, containers, networks and volumes, go the the project's root directory and run:
+
+`docker-compose -f docker-compose-development.yml down -v`
 
 ## To do
 

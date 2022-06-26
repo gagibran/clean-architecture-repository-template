@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
-#if (configureUnitOfWork)
 using Core.Interfaces;
 using Infrastructure.Repositories;
-#endif
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 var developmentCorsPolicy = "DevelopmentCorsPolicy";
@@ -16,6 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 });
 #if (configureUnitOfWork)
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+#else
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 #endif
 if (builder.Environment.IsDevelopment())
 {

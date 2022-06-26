@@ -3,14 +3,14 @@ using Core.Exceptions;
 
 namespace Infrastructure.Repositories;
 
-public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
 #if (!configureUnitOfWork)
     private readonly ApplicationDbContext _applicationDbContext;
 #endif
     private readonly DbSet<TEntity> _entities;
 
-    public GenericRepository(ApplicationDbContext applicationDbContext)
+    public Repository(ApplicationDbContext applicationDbContext)
     {
 #if (!configureUnitOfWork)
         _applicationDbContext = applicationDbContext;
