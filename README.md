@@ -17,11 +17,11 @@ Give it a star if you like it! Feel free to contribute.
 
 - [Motivation](#motivation)
 - [Installation](#installation)
-- [Running and options](#running-and-options)
-- [Running the created project](#running-the-created-project)
+- [Running And Options](#running-and-options)
+- [Running The Created Project](#running-the-created-project)
     - [Development](#development)
-- [Adding migrations](#adding-migrations)
-- [To do](#to-do)
+- [Adding Migrations](#adding-migrations)
+- [To Do](#to-do)
 
 ## Motivation
 
@@ -39,7 +39,7 @@ Alternatively, download this repository and, in its root directory, run:
 
 `dotnet new --install .`
 
-## Running and options
+## Running And Options
 
 Once installed, to use the template, simply run the command:
 
@@ -57,7 +57,7 @@ In order to disabled these options, the following flags are available: `-e` or `
 
 Use `dotnet new cleanarchrepo --help` to see the list of parameters and more information.
 
-## Running the created project
+## Running The Created Project
 
 The project is configured to run inside Docker containers.
 
@@ -71,11 +71,13 @@ To start the application. The front end URL will be: http://localhost:3000. If y
 
 It comes with a default `User` entity so that you can test the CRUD operations right out of the box by either using Swagger or an API platform, such as [Postman](https://www.postman.com/).
 
+You can also do CRUD operations using the UI (React). There is only one user component added to represent how the front end communicates with the back end. There are no custom CSS styles.
+
 To terminate the application and delete the created images, containers, networks and volumes, hit `Ctrl+C` on your running terminal to stop the application, go the the project's root directory and run:
 
 `docker-compose -f docker-compose-development.yml down -v`
 
-## Adding migrations
+## Adding Migrations
 
 To add a migration, go to the project's root directory and run:
 
@@ -83,7 +85,7 @@ To add a migration, go to the project's root directory and run:
 
 No need to install the `dotnet-global` tool, because it is already in the `.\.config\dotnet-tools.json` file.
 
-## To do
+## To Do
 
 - Currently, the project does not contain a unit tests project. This will be added soon.
 - I will also add Angular support and an option to configure different databases.

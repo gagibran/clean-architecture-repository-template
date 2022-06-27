@@ -80,6 +80,7 @@ public class UserController : BaseController
     ///        "email": "johndoe@example.com",
     ///        "dateOfBirth": "2022-06-26T15:06:55.759Z",
     ///        "address1": "123 Copperas Cove",
+    ///        "address2": "Building 2",
     ///        "zipCode": "76522",
     ///        "state": "Texas"
     ///     }
