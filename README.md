@@ -27,7 +27,7 @@ Give it a star if you like it! Feel free to contribute.
 
 I created this template so that I don't have to write a lot of boilerplate code when I want to create a new project and I wanted to share my approach to this architecture.
 
-This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template](https://github.com/ardalis/CleanArchitecture). Check out his [YouTube channel](https://www.youtube.com/c/Ardalis) for more information on this architecture.
+This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template](https://github.com/ardalis/CleanArchitecture). Check out his [YouTube channel](https://www.youtube.com/c/Ardalis) for more information on this architecture. **I did not use the [specification pattern](https://www.youtube.com/watch?v=BgWWbBUWyig&t=146s) here**.
 
 ## Installation
 

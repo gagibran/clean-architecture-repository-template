@@ -1,5 +1,4 @@
 using Core.Entities;
-using Core.Exceptions;
 
 namespace Infrastructure.Repositories;
 
@@ -12,22 +11,8 @@ public class UserRepository : Repository<User>, IUserRepository
         _applicationDbContext = applicationDbContext;
     }
 
-    public async Task UpdateUserAsync(User user, Guid id)
+    public void UpdateUser(User user)
     {
-        User? foundUser = await _applicationDbContext.Users.FindAsync(id);
-        if (foundUser is null)
-        {
-            throw new NotFoundException();
-        }
-        foundUser.FirstName = user.FirstName;
-        foundUser.LastName = user.LastName;
-        foundUser.Email = user.Email;
-        foundUser.DateOfBirth = user.DateOfBirth;
-        foundUser.Address1 = user.Address1;
-        foundUser.Address2 = user.Address2;
-        foundUser.Address2 = user.ZipCode;
-        foundUser.State = user.State;
-        foundUser.UpdatedAt = DateTime.UtcNow;
-        _applicationDbContext.Users.Update(foundUser);
+        _applicationDbContext.Users.Update(user);
     }
 }

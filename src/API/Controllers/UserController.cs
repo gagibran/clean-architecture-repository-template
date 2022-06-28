@@ -1,5 +1,4 @@
 using Core.Entities;
-using Core.Exceptions;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,19 +49,16 @@ public class UserController : BaseController
     [ActionName(nameof(GetUserByIdAsync))]
     public async Task<IActionResult> GetUserByIdAsync(Guid id)
     {
-        try
-        {
 #if (configureUnitOfWork)
-            User existingUser = await _unitOfWork.Users.GetByIdAsync(id);
+        User? existingUser = await _unitOfWork.Users.GetByIdAsync(id);
 #else
-            User existingUser = await _users.GetByIdAsync(id);
+        User? existingUser = await _users.GetByIdAsync(id);
 #endif
-            return Ok(existingUser);
-        }
-        catch (NotFoundException)
+        if (existingUser is null)
         {
             return NotFound();
         }
+        return Ok(existingUser);
     }
 
     /// <summary>
@@ -127,21 +123,42 @@ public class UserController : BaseController
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateUserAsync(User user, Guid id)
     {
-        try
-        {
 #if (configureUnitOfWork)
-            await _unitOfWork.Users.UpdateUserAsync(user, id);
-            await _unitOfWork.SaveAsync();
-#else
-            await _users.UpdateUserAsync(user, id);
-            await _users.SaveAsync();
-#endif
-            return NoContent();
-        }
-        catch (NotFoundException)
+        User? existingUser = await _unitOfWork.Users.GetByIdAsync(id);
+        if (existingUser is null)
         {
             return NotFound();
         }
+        existingUser.FirstName = user.FirstName;
+        existingUser.LastName = user.LastName;
+        existingUser.Email = user.Email;
+        existingUser.DateOfBirth = user.DateOfBirth;
+        existingUser.Address1 = user.Address1;
+        existingUser.Address2 = user.Address2;
+        existingUser.Address2 = user.ZipCode;
+        existingUser.State = user.State;
+        existingUser.UpdatedAt = DateTime.UtcNow;
+        _unitOfWork.Users.UpdateUser(user);
+        await _unitOfWork.SaveAsync();
+#else
+        User? existingUser = await _users.GetByIdAsync(id);
+        if (existingUser is null)
+        {
+            return NotFound();
+        }
+        existingUser.FirstName = user.FirstName;
+        existingUser.LastName = user.LastName;
+        existingUser.Email = user.Email;
+        existingUser.DateOfBirth = user.DateOfBirth;
+        existingUser.Address1 = user.Address1;
+        existingUser.Address2 = user.Address2;
+        existingUser.Address2 = user.ZipCode;
+        existingUser.State = user.State;
+        existingUser.UpdatedAt = DateTime.UtcNow;
+        _users.UpdateUser(user);
+        await _users.SaveAsync();
+#endif
+        return NoContent();
     }
 
     /// <summary>
@@ -153,20 +170,23 @@ public class UserController : BaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUserAsync(Guid id)
     {
-        try
-        {
 #if (configureUnitOfWork)
-            await _unitOfWork.Users.DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
-#else
-            await _users.DeleteAsync(id);
-            await _users.SaveAsync();
-#endif
-            return NoContent();
-        }
-        catch (NotFoundException)
+        User? existingUser = await _unitOfWork.Users.GetByIdAsync(id);
+        if (existingUser is null)
         {
             return NotFound();
         }
+        _unitOfWork.Users.Delete(existingUser);
+        await _unitOfWork.SaveAsync();
+#else
+        User? existingUser = await _users.GetByIdAsync(id);
+        if (existingUser is null)
+        {
+            return NotFound();
+        }
+        _users.Delete(existingUser);
+        await _users.SaveAsync();
+#endif
+        return NoContent();
     }
 }
