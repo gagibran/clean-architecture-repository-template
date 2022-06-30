@@ -20,7 +20,7 @@ public static class InfrastructureServicesExtension
 #if (configureUnitOfWork)
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
 #else
-        serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IProductRepository, ProductRepository>();
 #endif
         return serviceCollection;
     }

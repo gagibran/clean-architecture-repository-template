@@ -4,12 +4,12 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
-    public IUserRepository Users { get; }
+    public IProductRepository Products { get; }
 
     public UnitOfWork(ApplicationDbContext applicationDbContext)
     {
         _applicationDbContext = applicationDbContext;
-        Users = new UserRepository(applicationDbContext);
+        Products = new ProductRepository(applicationDbContext);
     }
 
     public async Task SaveAsync()

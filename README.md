@@ -83,7 +83,7 @@ To add a migration, go to the project's root directory and run:
 
 `dotnet ef migrations add <migration-name> -p .\src\Infrastructure\ -s .\src\API\ -o .\Data\Migrations\`
 
-No need to install the `dotnet-global` tool, because it is already in the `.\.config\dotnet-tools.json` file.
+No need to install the [dotnet-ef tool](https://docs.microsoft.com/en-us/ef/core/cli/dotnet#installing-the-tools), because it is already in the `.\.config\dotnet-tools.json` manifest file.
 
 ## To Do
 

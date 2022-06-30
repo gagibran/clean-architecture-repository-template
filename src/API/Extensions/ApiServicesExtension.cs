@@ -44,7 +44,7 @@ public static class ApiServicesExtension
                 Description = "A .NET 6 API for the CleanArchRepoTemplate solution"
             });
             options.IncludeXmlComments(xmlFilePath);
-            options.SchemaFilter<UserSchemaFilter>();
+            options.SchemaFilter<ProductSchemaFilter>();
         });
         return serviceCollection;
     }

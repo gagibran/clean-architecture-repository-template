@@ -1,10 +1,10 @@
-import User from './components/User';
+import Product from './components/Product';
 
 const App = () => {
     return (
         <>
             <h1>CleanArchRepoTemplate</h1>
-            <User />
+            <Product />
         </>
     );
 }

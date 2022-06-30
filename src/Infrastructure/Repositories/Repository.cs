@@ -2,15 +2,11 @@ namespace CleanArchRepoTemplate.Infrastructure.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
-#if (!configureUnitOfWork)
     private readonly ApplicationDbContext _applicationDbContext;
-#endif
 
     public Repository(ApplicationDbContext applicationDbContext)
     {
-#if (!configureUnitOfWork)
         _applicationDbContext = applicationDbContext;
-#endif
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync()
