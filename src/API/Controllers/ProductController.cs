@@ -79,6 +79,8 @@ public class ProductController : BaseController
     [HttpPost]
     public async Task<IActionResult> CreateProductAsync(Product product)
     {
+        product.Id =  Guid.NewGuid();
+        product.CreatedAt =  DateTime.UtcNow;
 #if (configureUnitOfWork)
         await _unitOfWork.Products.CreateAsync(product);
         await _unitOfWork.SaveAsync();

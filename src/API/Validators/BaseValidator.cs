@@ -4,6 +4,8 @@ public class BaseValidator<TEntity> : AbstractValidator<TEntity> where TEntity :
 {
     public BaseValidator()
     {
+        RuleFor(entity => entity.Id).Empty();
+        RuleFor(entity => entity.CreatedAt).Empty();
         RuleFor(entity => entity.UpdatedAt).Empty();
     }
 }

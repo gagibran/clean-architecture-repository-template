@@ -1,11 +1,11 @@
 import axios, { AxiosError } from 'axios';
-import Product from '../entities/productGet';
+import ProductEntity from '../entities/productEntity';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/product/';
 
 export const getAllProductsAsync = async () => {
     try {
-        const response = await axios.get<Product[]>('/');
+        const response = await axios.get<ProductEntity[]>('/');
         return response.data;
     } catch (error) {
         console.log(`There was an error trying to fetch the products: ${error}.`);
@@ -14,7 +14,7 @@ export const getAllProductsAsync = async () => {
 
 export const getProductByIdAsync = async (id: string) => {
     try {
-        const response = await axios.get<Product>(`/${id}`);
+        const response = await axios.get<ProductEntity>(`/${id}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError) {
@@ -26,7 +26,7 @@ export const getProductByIdAsync = async (id: string) => {
 
 export const createProductAsync = async (body: object) => {
     try {
-        const response = await axios.post<Product>('/', body);
+        const response = await axios.post<ProductEntity>('/', body);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError) {
@@ -38,7 +38,7 @@ export const createProductAsync = async (body: object) => {
 
 export const updateProductByIdAsync = async (body: object, id: string) => {
     try {
-        const response =  await axios.put<Product>(`/${id}`, body);
+        const response =  await axios.put<ProductEntity>(`/${id}`, body);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError) {
@@ -50,7 +50,7 @@ export const updateProductByIdAsync = async (body: object, id: string) => {
 
 export const deleteProductByIdAsync = async (id: string) => {
     try {
-        const response = await axios.delete<Product>(`/${id}`);
+        const response = await axios.delete<ProductEntity>(`/${id}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError) {

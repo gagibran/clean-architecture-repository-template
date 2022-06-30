@@ -1,0 +1,15 @@
+ul {
+    list-style-type: none;
+}
+
+label {
+    display: block;
+}
+
+h2 {
+    margin-top: 50px;
+}
+
+button {
+    display: block;
+}

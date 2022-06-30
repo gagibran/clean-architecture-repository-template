@@ -1,4 +1,4 @@
-interface ProductGet {
+interface ProductEntity {
     id: string,
     name: string,
     price: number,
@@ -6,4 +6,4 @@ interface ProductGet {
     createdAt: string
 }
 
-export default ProductGet;
+export default ProductEntity;

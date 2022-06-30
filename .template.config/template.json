@@ -65,15 +65,13 @@
             "src/API/API.csproj"
           ],
           "rename": {
-            "src/API/APISwagger.csproj": "src/API/API.csproj",
-            "src/API/Properties/launchSettingsSwagger.json": "src/API/Properties/launchSettings.json"
+            "src/API/APISwagger.csproj": "src/API/API.csproj"
           }
         },
         {
           "condition": "(!enableSwagger)",
           "exclude": [
             "src/API/APISwagger.csproj",
-            "src/API/Properties/launchSettingsSwagger.json",
             "src/API/SwaggerSchemas/UserSchemaFilter.cs"
           ]
         },
