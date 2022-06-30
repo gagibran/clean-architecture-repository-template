@@ -1,4 +1,4 @@
-namespace Core.Interfaces;
+namespace CleanArchRepoTemplate.Core.Interfaces;
 
 public interface IUnitOfWork
 {

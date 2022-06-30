@@ -1,6 +1,4 @@
-using Core.Entities;
-
-namespace Core.Interfaces;
+namespace CleanArchRepoTemplate.Core.Interfaces;
 
 public interface IUserRepository : IRepository<User>
 {

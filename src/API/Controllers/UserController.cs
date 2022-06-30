@@ -1,8 +1,6 @@
-using Core.Entities;
-using Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+using CleanArchRepoTemplate.Core.Interfaces;
 
-namespace API.Controllers;
+namespace CleanArchRepoTemplate.API.Controllers;
 
 public class UserController : BaseController
 {

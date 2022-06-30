@@ -1,10 +1,9 @@
 using FluentValidation.AspNetCore;
 #if (enableSwagger)
-using API.SwaggerSchemas;
-using Microsoft.OpenApi.Models;
+using CleanArchRepoTemplate.API.SwaggerSchemas;
 #endif
 
-namespace API.Extensions;
+namespace CleanArchRepoTemplate.API.Extensions;
 
 public static class ApiServicesExtension
 {

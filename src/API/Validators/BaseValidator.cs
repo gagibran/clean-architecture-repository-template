@@ -1,7 +1,4 @@
-using Core.Entities;
-using FluentValidation;
-
-namespace API.Validators;
+namespace CleanArchRepoTemplate.API.Validators;
 
 public class BaseValidator<TEntity> : AbstractValidator<TEntity> where TEntity : BaseEntity
 {

@@ -1,6 +1,4 @@
-using Core.Entities;
-
-namespace Infrastructure.Repositories;
+namespace CleanArchRepoTemplate.Infrastructure.Repositories;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {

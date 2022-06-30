@@ -1,4 +1,4 @@
-namespace Core.Entities;
+namespace CleanArchRepoTemplate.Core.Entities;
 
 public class User : BaseEntity
 {

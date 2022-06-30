@@ -1,6 +1,4 @@
-using Core.Entities;
-
-namespace Infrastructure.Data;
+namespace CleanArchRepoTemplate.Infrastructure.Data;
 
 public class ApplicationDbContext : DbContext
 {

@@ -1,8 +1,8 @@
-using Infrastructure.Repositories;
+using CleanArchRepoTemplate.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Extensions;
+namespace CleanArchRepoTemplate.Infrastructure.Extensions;
 
 public static class InfrastructureServicesExtension
 {

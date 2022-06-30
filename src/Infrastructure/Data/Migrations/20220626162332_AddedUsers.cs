@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Data.Migrations
+namespace CleanArchRepoTemplate.Infrastructure.Data.Migrations
 {
     public partial class AddedUsers : Migration
     {

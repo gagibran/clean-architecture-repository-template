@@ -1,8 +1,8 @@
+#if (enableSwagger)
 using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace API.SwaggerSchemas;
+namespace CleanArchRepoTemplate.API.SwaggerSchemas;
 
 public class UserSchemaFilter : ISchemaFilter
 {
@@ -21,3 +21,4 @@ public class UserSchemaFilter : ISchemaFilter
         };
     }
 }
+#endif

@@ -1,6 +1,4 @@
-using Core.Entities;
-
-namespace Infrastructure.Repositories;
+namespace CleanArchRepoTemplate.Infrastructure.Repositories;
 
 public class UserRepository : Repository<User>, IUserRepository
 {

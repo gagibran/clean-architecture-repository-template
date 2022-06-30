@@ -1,4 +1,4 @@
-namespace Infrastructure.Repositories;
+namespace CleanArchRepoTemplate.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {

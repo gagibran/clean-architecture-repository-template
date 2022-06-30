@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.Data;
-using Infrastructure.Extensions;
-using API.Extensions;
+using CleanArchRepoTemplate.Infrastructure.Data;
+using CleanArchRepoTemplate.Infrastructure.Extensions;
+using CleanArchRepoTemplate.API.Extensions;
 
 const string DEVELOPMENT_CORS_POLICY = "DevelopmentCorsPolicy";
 
