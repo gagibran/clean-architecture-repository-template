@@ -4,14 +4,14 @@ import ProductEntity from '../entities/productEntity';
 import AllProducts from './AllProducts';
 import CreateProduct from './CreateProduct';
 import GetProductById from './GetProductById';
+import UpdateProductById from './UpdateProductById';
 
 const Product = () => {
     const [products, setProducts] = useState<ProductEntity[]>([]);
-    const [productById, setProductById] = useState<ProductEntity>();
 
     const fetchProductsAsync = useCallback(async () => {
-        const products = await getAllProductsAsync();
-        setProducts(products ?? []);
+        const foundProducts = await getAllProductsAsync();
+        setProducts(foundProducts ?? []);
     }, []);
 
     useEffect(() => {
@@ -21,8 +21,9 @@ const Product = () => {
     return (
         <section>
             <AllProducts products={products} />
-            <GetProductById productById={productById} setProductById={setProductById} />
-            <CreateProduct setProducts={setProducts} />
+            <GetProductById />
+            <CreateProduct fetchProductsAsync={fetchProductsAsync} />
+            <UpdateProductById fetchProductsAsync={fetchProductsAsync} />
         </section>
     );
 };

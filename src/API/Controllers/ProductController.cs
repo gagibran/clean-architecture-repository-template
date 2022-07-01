@@ -121,7 +121,7 @@ public class ProductController : BaseController
         existingProduct.Name = product.Name;
         existingProduct.Price = product.Price;
         existingProduct.UpdatedAt = DateTime.UtcNow;
-        _unitOfWork.Products.UpdateProduct(product);
+        _unitOfWork.Products.UpdateProduct(existingProduct);
         await _unitOfWork.SaveAsync();
 #else
         Product? existingProduct = await _products.GetByIdAsync(id);
@@ -132,7 +132,7 @@ public class ProductController : BaseController
         existingProduct.Name = product.Name;
         existingProduct.Price = product.Price;
         existingProduct.UpdatedAt = DateTime.UtcNow;
-        _products.UpdateProduct(product);
+        _products.UpdateProduct(existingProduct);
         await _products.SaveAsync();
 #endif
         return NoContent();

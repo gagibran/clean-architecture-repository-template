@@ -1,13 +1,10 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { getProductByIdAsync } from '../api/productRequests';
 import ProductEntity from '../entities/productEntity';
 
-interface Props {
-    productById: ProductEntity | undefined,
-    setProductById: Function
-}
+const GetProductById = () => {
+    const [productById, setProductById] = useState<ProductEntity>();
 
-const GetProductById = ({ productById, setProductById }: Props) => {
     const getProductByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
         const foundProduct = await getProductByIdAsync(inputEvent.currentTarget.value);
         setProductById(foundProduct);

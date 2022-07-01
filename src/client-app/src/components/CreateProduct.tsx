@@ -3,55 +3,51 @@ import { createProductAsync } from '../api/productRequests';
 import ProductEntity from '../entities/productEntity';
 
 interface Props {
-    setProducts: React.Dispatch<React.SetStateAction<ProductEntity[]>>
+    fetchProductsAsync: () => Promise<void>
 }
 
-interface CreatedProduct {
-    name: string,
-    price: number
-}
+const CreateProduct = ({ fetchProductsAsync }: Props) => {
+    const [newProductName, setNewProductName] = useState('');
+    const [newProductType, setNewProductType] = useState(0);
 
-const CreateProduct = ({ setProducts }: Props) => {
-    const [productName, setProductName] = useState('');
-    const [productPrice, setProductPrice] = useState(0);
-
-    const createProductNameHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => setProductName(inputEvent.currentTarget.value);
-
-    const createProductPriceHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => setProductPrice(+inputEvent.currentTarget.value);
-
-    const createFormSubmitHandlerAsync = async (formEvent: FormEvent) => {
+    const createProductNameHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
+        setNewProductName(inputEvent.currentTarget.value);
+    const createProductPriceHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
+        setNewProductType(+inputEvent.currentTarget.value);
+    const createProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
-        const productToBeCreated: CreatedProduct = {
-            name: productName,
-            price: productPrice
+        const productToBeCreated: ProductEntity = {
+            id: '',
+            createdAt: '',
+            updatedAt: '',
+            name: newProductName,
+            price: newProductType
         };
         const createdProduct = await createProductAsync(productToBeCreated);
-        if (createdProduct !== undefined) {
-            setProducts(prevProducts => [ ...prevProducts, createdProduct ]);
+        if (createdProduct) {
+            fetchProductsAsync();
         }
     };
 
     return (
-        <div>
+        <form onSubmit={createProductSubmitHandlerAsync}>
             <h2>Create Product</h2>
-            <form onSubmit={createFormSubmitHandlerAsync}>
-                <label htmlFor="name">Product Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    onChange={createProductNameHandlerAsync}
-                    required
-                    />
-                <label htmlFor="price">Price</label>
-                <input
-                    type="number"
-                    id="price"
-                    onChange={createProductPriceHandlerAsync}
-                    required
+            <label htmlFor="productNameCreate">Product Name</label>
+            <input
+                type="text"
+                id="productNameCreate"
+                onChange={createProductNameHandlerAsync}
+                required
                 />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+            <label htmlFor="productPriceCreate">Price</label>
+            <input
+                type="number"
+                id="productPriceCreate"
+                onChange={createProductPriceHandlerAsync}
+                required
+            />
+            <button type="submit">Create Product</button>
+        </form>
     );
 };
 
