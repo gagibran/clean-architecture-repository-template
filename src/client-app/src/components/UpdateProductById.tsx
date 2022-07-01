@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
-import { getProductByIdAsync, updateProductByIdAsync } from '../api/productRequests';
+import { getByIdAsync, updateByIdAsync } from '../api/requests';
+import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
 import ProductEntity from '../entities/productEntity';
 
 interface Props {
@@ -14,26 +15,29 @@ const UpdateProductById = ({ fetchProductsAsync }: Props) => {
 
     const getProductToBeUpdatedByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
         setProductToBeUpdatedId(inputEvent.currentTarget.value);
-        const foundProduct = await getProductByIdAsync(inputEvent.currentTarget.value);
-        setProductToBeUpdated(foundProduct);
+        const foundProduct = await getByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, inputEvent.currentTarget.value);
+        if (foundProduct) {
+            setProductToBeUpdated(foundProduct);
+        }
     };
+
     const updateProductNameHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
         setProductNameUpdated(inputEvent.currentTarget.value);
+
     const updateProductPriceHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
         setProductPriceUpdated(+inputEvent.currentTarget.value);
+
     const updateProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
-        if (productToBeUpdated) {
-            const product: ProductEntity = {
-                ...productToBeUpdated,
-                name: productNameUpdated,
-                price: productPriceUpdated
-            };
-            const updatedProduct = await updateProductByIdAsync(product, productToBeUpdatedId);
-            if (updatedProduct) {
-                fetchProductsAsync();
-            }
+        if (!productToBeUpdated) {
+            return;
         }
+        const newProduct: ProductEntity = {
+            name: productNameUpdated,
+            price: productPriceUpdated
+        };
+        await updateByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, newProduct, productToBeUpdatedId);
+        await fetchProductsAsync();
     };
 
     return (

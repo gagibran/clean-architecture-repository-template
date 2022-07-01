@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
-import { createProductAsync } from '../api/productRequests';
+import { createAsync } from '../api/requests';
+import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
 import ProductEntity from '../entities/productEntity';
 
 interface Props {
@@ -12,21 +13,18 @@ const CreateProduct = ({ fetchProductsAsync }: Props) => {
 
     const createProductNameHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
         setNewProductName(inputEvent.currentTarget.value);
+
     const createProductPriceHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
         setNewProductType(+inputEvent.currentTarget.value);
+
     const createProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
-        const productToBeCreated: ProductEntity = {
-            id: '',
-            createdAt: '',
-            updatedAt: '',
+        const productToBeCreated = {
             name: newProductName,
             price: newProductType
         };
-        const createdProduct = await createProductAsync(productToBeCreated);
-        if (createdProduct) {
-            fetchProductsAsync();
-        }
+        await createAsync<ProductEntity>(PRODUCT_API_BASE_URL, productToBeCreated);
+        await fetchProductsAsync();
     };
 
     return (

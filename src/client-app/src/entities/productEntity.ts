@@ -1,9 +1,9 @@
 interface ProductEntity {
-    id: string,
+    id?: string,
     name: string,
     price: number,
-    updatedAt: string,
-    createdAt: string
+    updatedAt?: string,
+    createdAt?: string
 }
 
 export default ProductEntity;

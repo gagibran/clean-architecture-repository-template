@@ -1,13 +1,14 @@
 import { FormEvent, useState } from 'react';
-import { getProductByIdAsync } from '../api/productRequests';
+import { getByIdAsync } from '../api/requests';
+import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
 import ProductEntity from '../entities/productEntity';
 
 const GetProductById = () => {
     const [productById, setProductById] = useState<ProductEntity>();
 
     const getProductByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
-        const foundProduct = await getProductByIdAsync(inputEvent.currentTarget.value);
-        setProductById(foundProduct);
+        const foundProduct = await getByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, inputEvent.currentTarget.value);
+            setProductById(foundProduct ?? undefined);
     };
 
     return (
