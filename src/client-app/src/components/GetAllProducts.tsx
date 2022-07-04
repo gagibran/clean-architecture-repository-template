@@ -1,30 +1,24 @@
 import ProductEntity from '../entities/productEntity';
+import Product from './Product';
+import styles from '../styles/Product.module.css';
 
 interface Props {
     products: ProductEntity[]
 };
 
-const AllProducts = ({ products }: Props) => {
+const GetAllProducts = ({ products }: Props) => {
     return (
-        <div>
+        <div className={styles['product__products-section']}>
             <h2>All Products</h2>
-            {products.map(product => {
+            {products.length 
+            ? products.map(product => {
                 return (
-                    <ul key={product.id}>
-                        <li>
-                            <strong>ID</strong>: {product.id}
-                        </li>
-                        <li>
-                            <strong>Product Name</strong>: {product.name}
-                        </li>
-                        <li>
-                            <strong>Price</strong>: {product.price}
-                        </li>
-                    </ul>
+                    <Product key={product.id} product={product} />
                 );
-            })}
+            })
+            : <p className={styles['product__no-products']}>No products to display.</p>}
         </div>
     );
 };
 
-export default AllProducts;
+export default GetAllProducts;

@@ -1,10 +1,10 @@
-import Product from './components/Product';
+import ProductsContainer from './components/ProductsContainer';
 
 const App = () => {
     return (
         <>
-            <h1>CleanArchRepoTemplate</h1>
-            <Product />
+            <h1>Test</h1>
+            <ProductsContainer />
         </>
     );
 }

@@ -1,24 +1,50 @@
-import { FormEvent } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import useFindProductById from '../hooks/useFindProductById';
+import Product from './Product';
+import styles from '../styles/Product.module.css';
 
 const GetProductById = () => {
-    const [product, setProductByIdAsync] = useFindProductById();
+    const [isFirstSubmit, setIsFirstSubmit] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [product, fetchProductByIdAsync] = useFindProductById();
+    const getProductIdByRef = useRef<HTMLInputElement>(null);
 
-    const getProductByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
-        await setProductByIdAsync(inputEvent.currentTarget.value)
+    const getProductElement = () => {
+        if (isLoading) {
+            return <p className={styles['product-section__loading']}>Loading...</p>
+        } else if (product?.id) {
+            return <Product product={product} />;
+        } else if (!product && !isFirstSubmit) {
+            return (
+                <p className={styles['product-section__no-products']}>
+                    Incorrect ID format or product does not exist.
+                </p>
+            );
+        }
+    };
+
+    const getProductSubmitHandlerAsync = async(formEvent: FormEvent) => {
+        formEvent.preventDefault();
+        setIsFirstSubmit(false);
+        setIsLoading(true);
+        if (!getProductIdByRef.current) {
+            return;
+        }
+        await fetchProductByIdAsync(getProductIdByRef.current?.value)
+        setIsLoading(false);
     };
 
     return (
-        <div>
+        <form
+            className={styles['product__products-section']}
+            onSubmit={getProductSubmitHandlerAsync}
+        >
             <h2>Get Product By ID</h2>
             <label htmlFor="getProductById">Product ID</label>
-            <input type="text" id="getProductById" onChange={getProductByIdHandlerAsync} />
-            <ul>
-                <li>{product?.id && `ID: ${product?.id}`}</li>
-                <li>{product?.name && `Product Name: ${product?.name}`}</li>
-                <li>{product?.price && `Price: ${product?.price}`}</li>
-            </ul>
-        </div>
+            <input type="text" id="getProductById" ref={getProductIdByRef} required />
+            {getProductElement()}
+            <button type="submit">Get Product</button>
+        </form>
     );
 };
 

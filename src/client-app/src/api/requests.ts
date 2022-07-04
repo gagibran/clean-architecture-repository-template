@@ -50,7 +50,8 @@ export const updateByIdAsync = async <TEntity>(url: string, body: TEntity, id: s
 
 export const deleteByIdAsync = async <TEntity>(url: string, id: string) => {
     try {
-        await axios.delete<TEntity>(`${url}/${id}`);
+        const response = await axios.delete<TEntity>(`${url}/${id}`);
+        return response.status;
     } catch (error) {
         if (error instanceof AxiosError) {
             console.log('Error trying to delete entity by ID.');

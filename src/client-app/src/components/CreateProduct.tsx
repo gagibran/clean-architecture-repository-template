@@ -2,6 +2,7 @@ import { FormEvent, useReducer } from 'react';
 import { createAsync } from '../api/requests';
 import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
 import ProductEntity from '../entities/productEntity';
+import styles from '../styles/Product.module.css';
 
 interface Props {
     fetchProductsAsync: () => Promise<void>
@@ -72,7 +73,10 @@ const CreateProduct = ({ fetchProductsAsync }: Props) => {
     };
 
     return (
-        <form onSubmit={createProductSubmitHandlerAsync}>
+        <form
+            className={styles['product__products-section']}
+            onSubmit={createProductSubmitHandlerAsync}
+        >
             <h2>Create Product</h2>
             <label htmlFor="productNameCreate">Product Name</label>
             <input
