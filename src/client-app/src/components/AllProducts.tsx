@@ -1,4 +1,4 @@
-import ProductEntity from "../entities/productEntity";
+import ProductEntity from '../entities/productEntity';
 
 interface Props {
     products: ProductEntity[]

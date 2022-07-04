@@ -1,14 +1,11 @@
-import { FormEvent, useState } from 'react';
-import { getByIdAsync } from '../api/requests';
-import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
-import ProductEntity from '../entities/productEntity';
+import { FormEvent } from 'react';
+import useFindProductById from '../hooks/useFindProductById';
 
 const GetProductById = () => {
-    const [productById, setProductById] = useState<ProductEntity>();
+    const [product, setProductByIdAsync] = useFindProductById();
 
     const getProductByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
-        const foundProduct = await getByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, inputEvent.currentTarget.value);
-            setProductById(foundProduct ?? undefined);
+        await setProductByIdAsync(inputEvent.currentTarget.value)
     };
 
     return (
@@ -17,9 +14,9 @@ const GetProductById = () => {
             <label htmlFor="getProductById">Product ID</label>
             <input type="text" id="getProductById" onChange={getProductByIdHandlerAsync} />
             <ul>
-                <li>{productById?.id && `ID: ${productById?.id}`}</li>
-                <li>{productById?.name && `Product Name: ${productById?.name}`}</li>
-                <li>{productById?.price && `Price: ${productById?.price}`}</li>
+                <li>{product?.id && `ID: ${product?.id}`}</li>
+                <li>{product?.name && `Product Name: ${product?.name}`}</li>
+                <li>{product?.price && `Price: ${product?.price}`}</li>
             </ul>
         </div>
     );

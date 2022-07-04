@@ -1,31 +1,72 @@
-import { FormEvent, useState } from 'react';
-import { getByIdAsync, updateByIdAsync } from '../api/requests';
+import { FormEvent, useReducer } from 'react';
+import { updateByIdAsync } from '../api/requests';
 import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
 import ProductEntity from '../entities/productEntity';
+import useFindProductById from '../hooks/useFindProductById';
 
 interface Props {
     fetchProductsAsync: () => Promise<void>
 }
 
+interface ProductAction {
+    type: AvailableProductActions,
+    payload: ProductState
+}
+
+interface ProductState {
+    productId?: string,
+    productName?: string,
+    productPrice?: number
+}
+
+enum AvailableProductActions {
+    SetId,
+    SetName,
+    SetPrice
+};
+
+const INITIAL_PRODUCT_STATE: ProductState = {
+    productId: '',
+    productName: '',
+    productPrice: 0
+};
+
+const productReducer = (state = INITIAL_PRODUCT_STATE, action: ProductAction) => {
+    switch (action.type) {
+        case AvailableProductActions.SetId:
+            return { ...state, productId: action.payload.productId};
+        case AvailableProductActions.SetName:
+            return { ...state, productName: action.payload.productName};
+        case AvailableProductActions.SetPrice:
+            return { ...state, productPrice: action.payload.productPrice }
+        default:
+            return state;
+    }
+};
+
 const UpdateProductById = ({ fetchProductsAsync }: Props) => {
-    const [productToBeUpdatedId, setProductToBeUpdatedId] = useState('');
-    const [productToBeUpdated, setProductToBeUpdated] = useState<ProductEntity>();
-    const [productNameUpdated, setProductNameUpdated] = useState('');
-    const [productPriceUpdated, setProductPriceUpdated] = useState(0);
+    const [productToBeUpdated, setProductToBeUpdatedByIdAsync] = useFindProductById();
+    const [productState, productDispatcher] = useReducer(productReducer, INITIAL_PRODUCT_STATE);
 
     const getProductToBeUpdatedByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
-        setProductToBeUpdatedId(inputEvent.currentTarget.value);
-        const foundProduct = await getByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, inputEvent.currentTarget.value);
-        if (foundProduct) {
-            setProductToBeUpdated(foundProduct);
-        }
+        productDispatcher({
+            type: AvailableProductActions.SetId,
+            payload: { productId: inputEvent.currentTarget.value }
+        });
+        await setProductToBeUpdatedByIdAsync(inputEvent.currentTarget.value);
     };
 
     const updateProductNameHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
-        setProductNameUpdated(inputEvent.currentTarget.value);
+        productDispatcher({
+            type: AvailableProductActions.SetName,
+            payload: { productName: inputEvent.currentTarget.value }
+        });
 
     const updateProductPriceHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
-        setProductPriceUpdated(+inputEvent.currentTarget.value);
+        productDispatcher({
+            type: AvailableProductActions.SetPrice,
+            payload: { productPrice: +inputEvent.currentTarget.value }
+        });
 
     const updateProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
@@ -33,10 +74,10 @@ const UpdateProductById = ({ fetchProductsAsync }: Props) => {
             return;
         }
         const newProduct: ProductEntity = {
-            name: productNameUpdated,
-            price: productPriceUpdated
+            name: productState.productName ?? '',
+            price: productState.productPrice ?? 0
         };
-        await updateByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, newProduct, productToBeUpdatedId);
+        await updateByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, newProduct, productState.productId ?? '');
         await fetchProductsAsync();
     };
 
