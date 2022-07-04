@@ -1,22 +1,30 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { deleteByIdAsync } from '../api/requests';
 import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
+import AvailableProductActions from '../common/enums/availableProductActions';
 import ProductEntity from '../entities/productEntity';
+import useCreateProduct from '../hooks/useCreateProduct';
 
 interface Props {
     fetchProductsAsync: () => Promise<void>
 }
 
 const DeleteProductById = ({ fetchProductsAsync }: Props) => {
-    const [productToBeDeletedId, setProductToBeDeletedId] = useState('');
+    const [productState, productDispatcher] = useCreateProduct();
 
     const getProductToBeDeletedIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
-        setProductToBeDeletedId(inputEvent.currentTarget.value);
+        productDispatcher({
+            type: AvailableProductActions.SetId,
+            payload: { productId: inputEvent.currentTarget.value }
+        });
     };
 
     const updateProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
-        await deleteByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, productToBeDeletedId);
+        if (!productState.productId) {
+            return;
+        }
+        await deleteByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, productState.productId);
         await fetchProductsAsync();
     };
 

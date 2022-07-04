@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getAllAsync } from '../api/requests';
 import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
 import ProductEntity from '../entities/productEntity';
-import AllProducts from './AllProducts';
+import GetAllProducts from './GetAllProducts';
 import CreateProduct from './CreateProduct';
 import DeleteProductById from './DeleteProductById';
 import GetProductById from './GetProductById';
@@ -13,7 +13,10 @@ const Product = () => {
 
     const fetchProductsAsync = useCallback(async () => {
         const foundProducts = await getAllAsync<ProductEntity>(PRODUCT_API_BASE_URL);
-        setProducts(foundProducts ?? []);
+        if (!foundProducts) {
+            return;
+        }
+        setProducts(foundProducts);
     }, []);
 
     useEffect(() => {
@@ -22,7 +25,7 @@ const Product = () => {
 
     return (
         <section>
-            <AllProducts products={products} />
+            <GetAllProducts products={products} />
             <GetProductById />
             <CreateProduct fetchProductsAsync={fetchProductsAsync} />
             <UpdateProductById fetchProductsAsync={fetchProductsAsync} />

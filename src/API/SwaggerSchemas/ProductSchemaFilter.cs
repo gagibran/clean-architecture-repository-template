@@ -1,5 +1,5 @@
-#if (enableSwagger)
 using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CleanArchRepoTemplate.API.SwaggerSchemas;
@@ -15,4 +15,3 @@ public class ProductSchemaFilter : ISchemaFilter
         };
     }
 }
-#endif

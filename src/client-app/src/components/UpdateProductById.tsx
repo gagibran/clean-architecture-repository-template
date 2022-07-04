@@ -1,52 +1,20 @@
-import { FormEvent, useReducer } from 'react';
+import { FormEvent, useRef } from 'react';
 import { updateByIdAsync } from '../api/requests';
 import { PRODUCT_API_BASE_URL } from '../common/constants/productConstants';
+import AvailableProductActions from '../common/enums/availableProductActions';
 import ProductEntity from '../entities/productEntity';
+import useCreateProduct from '../hooks/useCreateProduct';
 import useFindProductById from '../hooks/useFindProductById';
 
 interface Props {
     fetchProductsAsync: () => Promise<void>
 }
 
-interface ProductAction {
-    type: AvailableProductActions,
-    payload: ProductState
-}
-
-interface ProductState {
-    productId?: string,
-    productName?: string,
-    productPrice?: number
-}
-
-enum AvailableProductActions {
-    SetId,
-    SetName,
-    SetPrice
-};
-
-const INITIAL_PRODUCT_STATE: ProductState = {
-    productId: '',
-    productName: '',
-    productPrice: 0
-};
-
-const productReducer = (state = INITIAL_PRODUCT_STATE, action: ProductAction) => {
-    switch (action.type) {
-        case AvailableProductActions.SetId:
-            return { ...state, productId: action.payload.productId};
-        case AvailableProductActions.SetName:
-            return { ...state, productName: action.payload.productName};
-        case AvailableProductActions.SetPrice:
-            return { ...state, productPrice: action.payload.productPrice }
-        default:
-            return state;
-    }
-};
-
 const UpdateProductById = ({ fetchProductsAsync }: Props) => {
+    const [productState, productDispatcher] = useCreateProduct();
     const [productToBeUpdated, setProductToBeUpdatedByIdAsync] = useFindProductById();
-    const [productState, productDispatcher] = useReducer(productReducer, INITIAL_PRODUCT_STATE);
+    const productNameRef = useRef<HTMLInputElement>(null);
+    const productPriceRef = useRef<HTMLInputElement>(null);
 
     const getProductToBeUpdatedByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
         productDispatcher({
@@ -56,28 +24,16 @@ const UpdateProductById = ({ fetchProductsAsync }: Props) => {
         await setProductToBeUpdatedByIdAsync(inputEvent.currentTarget.value);
     };
 
-    const updateProductNameHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
-        productDispatcher({
-            type: AvailableProductActions.SetName,
-            payload: { productName: inputEvent.currentTarget.value }
-        });
-
-    const updateProductPriceHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) =>
-        productDispatcher({
-            type: AvailableProductActions.SetPrice,
-            payload: { productPrice: +inputEvent.currentTarget.value }
-        });
-
     const updateProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
         formEvent.preventDefault();
-        if (!productToBeUpdated) {
+        if (!productNameRef.current || !productPriceRef.current || !productState.productId) {
             return;
         }
-        const newProduct: ProductEntity = {
-            name: productState.productName ?? '',
-            price: productState.productPrice ?? 0
+        const updatedProduct = {
+            name: productNameRef.current.value,
+            price: +productPriceRef.current.value
         };
-        await updateByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, newProduct, productState.productId ?? '');
+        await updateByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, updatedProduct, productState.productId);
         await fetchProductsAsync();
     };
 
@@ -94,14 +50,15 @@ const UpdateProductById = ({ fetchProductsAsync }: Props) => {
             <input
                 type="text"
                 id="productNameUpdate"
-                onChange={updateProductNameHandlerAsync}
+                ref={productNameRef}
                 defaultValue={productToBeUpdated?.name}
             />
             <label htmlFor="productPriceUpdate">Price</label>
             <input
                 type="number"
+                step="0.01"
                 id="productPriceUpdate"
-                onChange={updateProductPriceHandlerAsync}
+                ref={productPriceRef}
                 defaultValue={productToBeUpdated?.price}
             />
             <button type="submit">Update Product</button>
