@@ -16,7 +16,7 @@
       Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.
     </summary>
     <releaseNotes>
-      Fixed a bug related to building the .NET API project with Swagger.
+      Fixed a bug related to building the .NET API project.
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
