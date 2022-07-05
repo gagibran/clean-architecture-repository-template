@@ -4,9 +4,9 @@ on:
   push:
     paths: ['CleanArchRepoTemplate.nuspec'] # Only runs when this file is modified.
     branches: [ main ]
-    workflow_run:
-      workflows: [Clean Architecture Build]
-      types: [completed]
+  workflow_run:
+    workflows: [Clean Architecture Build]
+    types: [completed]
 
 jobs:
   publish-on-build-success:
