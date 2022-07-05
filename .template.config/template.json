@@ -60,10 +60,20 @@
       ],
       "modifiers": [
         {
+          "condition": "(enableSwagger)",
+          "exclude": [
+            "src/API/APINoSwagger.csproj"
+          ]
+        },
+        {
           "condition": "(!enableSwagger)",
           "exclude": [
-            "src/API/SwaggerSchemas/*"
-          ]
+            "src/API/API.csproj",
+            "src/API/SwaggerSchemas/UserSchemaFilter.cs"
+          ],
+          "rename": {
+            "src/API/APINoSwagger.csproj": "src/API/API.csproj"
+          }
         },
         {
           "condition": "(!configureUnitOfWork)",

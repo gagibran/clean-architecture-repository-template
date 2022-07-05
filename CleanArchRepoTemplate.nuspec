@@ -5,7 +5,7 @@
     <authors>Gabriel Alvares Gibran</authors>
     <language>en-US</language>
     <title>Clean Architecture With Repository Pattern</title>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/gagibran/clean-architecture-repository-template</projectUrl>
     <repository type="git" url="https://github.com/gagibran/clean-architecture-repository-template.git" branch="main" />
@@ -16,8 +16,7 @@
       Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.
     </summary>
     <releaseNotes>
-      Added a default product entity as an example in the front end (with some styling) and back end (with FluentValidation) and added a custom product schema for Swagger,
-      fixed some minor bugs.
+      Fixed a bug related to building the .NET API project.
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />

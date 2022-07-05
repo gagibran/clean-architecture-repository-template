@@ -1,10 +1,8 @@
-name: Clean Architecture Build Job
+name: Clean Architecture Build
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ '**' ]
 
 jobs:
   dotnet_build:
@@ -27,6 +25,7 @@ jobs:
       run: dotnet build --no-restore
 
   nodejs_build:
+    needs: dotnet_build
     name: Build Node.js 16.x Projects
     runs-on: ubuntu-latest
     defaults:
