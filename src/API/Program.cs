@@ -1,48 +1,34 @@
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.Data;
-#if (configureUnitOfWork)
-using Core.Interfaces;
-using Infrastructure.Repositories;
-#endif
+using CleanArchRepoTemplate.Infrastructure.Data;
+using CleanArchRepoTemplate.Infrastructure.Extensions;
+using CleanArchRepoTemplate.API.Extensions;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-var developmentCorsPolicy = "DevelopmentCorsPolicy";
+const string DEVELOPMENT_CORS_POLICY = "DevelopmentCorsPolicy";
 
 // Add services to the container.
-builder.Services.AddControllers();
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<ApplicationDbContext>(options => {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationDatabase"));
-});
-#if (configureUnitOfWork)
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-#endif
+builder.Services.AddControllers();
+builder.Services.AddFluentValidationServices();
+builder.Services.AddDbContextServices(builder.Configuration);
+builder.Services.AddDependencyInjectionServices();
 if (builder.Environment.IsDevelopment())
 {
+    builder.Services.AddCorsDevelopmentServices(DEVELOPMENT_CORS_POLICY);
 #if (enableSwagger)
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerServices();
 #endif
     builder.WebHost.UseUrls("http://+:5000"); // HTTPS doesn't work very well with Docker.
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(developmentCorsPolicy, policy =>
-        {
-            policy.WithOrigins("http://localhost:3000")
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-        });
-    });
 }
 
+// Configure the HTTP request pipeline.
 WebApplication app = builder.Build();
 ILogger logger = app.Services.GetRequiredService<ILogger<Program>>();
 using IServiceScope scope = app.Services.CreateScope();
 IServiceProvider services = scope.ServiceProvider;
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors(developmentCorsPolicy);
+    app.UseCors(DEVELOPMENT_CORS_POLICY);
 #if (enableSwagger)
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -57,7 +43,7 @@ if (app.Environment.IsDevelopment())
         logger.LogError($"An error ocurred during migration: {exception}.");
     }
 }
-if (app.Environment.IsProduction())
+else if (app.Environment.IsProduction())
 {
     app.UseHttpsRedirection();
 }

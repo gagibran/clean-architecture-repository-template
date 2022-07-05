@@ -43,22 +43,26 @@
   },
   "sources": [
     {
+      "exclude": [
+        "README.md",
+        "LICENSE",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        ".vs/**/*",
+        ".github/**/*",
+        ".vscode/**/*",
+        "**/*.lock.json",
+        "**/*.gitignore",
+        "**/.git/**",
+        "*.nuspec",
+        "**/node_modules/**"
+      ],
       "modifiers": [
-        {
-          "condition": "(enableSwagger)",
-          "exclude": [
-            "src/API/API.csproj"
-          ],
-          "rename": {
-            "src/API/APISwagger.csproj": "src/API/API.csproj",
-            "src/API/Properties/launchSettingsSwagger.json": "src/API/Properties/launchSettings.json"
-          }
-        },
         {
           "condition": "(!enableSwagger)",
           "exclude": [
-            "src/API/APISwagger.csproj",
-            "src/API/Properties/launchSettingsSwagger.json"
+            "src/API/SwaggerSchemas/*"
           ]
         },
         {

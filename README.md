@@ -9,7 +9,7 @@
 
 It uses PostgreSQL 14, React 18 (with TypeScript) and .NET 6 and it comes with a docker-compose file configured for development.
 
-This app was developed using docker-compose version 1.29.2.
+This app was developed using Docker version 20.10.16 and Docker Compose version 1.29.2.
 
 Give it a star if you like it! Feel free to contribute.
 
@@ -17,15 +17,17 @@ Give it a star if you like it! Feel free to contribute.
 
 - [Motivation](#motivation)
 - [Installation](#installation)
-- [Running and options](#running-and-options)
-- [Running the created project](#running-the-created-project)
-- [To do](#to-do)
+- [Running And Options](#running-and-options)
+- [Running The Created Project](#running-the-created-project)
+    - [Development](#development)
+- [Adding Migrations](#adding-migrations)
+- [To Do](#to-do)
 
 ## Motivation
 
 I created this template so that I don't have to write a lot of boilerplate code when I want to create a new project and I wanted to share my approach to this architecture.
 
-This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template](https://github.com/ardalis/CleanArchitecture). Check out his [YouTube channel](https://www.youtube.com/c/Ardalis) for more information on this architecture.
+This is heavily inspired in Steve 'Ardalis' Smith's [clean architecture template](https://github.com/ardalis/CleanArchitecture). Check out his [YouTube channel](https://www.youtube.com/c/Ardalis) for more information on this architecture. **I did not use the [specification pattern](https://www.youtube.com/watch?v=BgWWbBUWyig&t=146s) here**.
 
 ## Installation
 
@@ -37,7 +39,7 @@ Alternatively, download this repository and, in its root directory, run:
 
 `dotnet new --install .`
 
-## Running and options
+## Running And Options
 
 Once installed, to use the template, simply run the command:
 
@@ -55,7 +57,11 @@ In order to disabled these options, the following flags are available: `-e` or `
 
 Use `dotnet new cleanarchrepo --help` to see the list of parameters and more information.
 
-## Running the created project
+## Running The Created Project
+
+The project is configured to run inside Docker containers.
+
+### Development
 
 Once your project has been generated with the template, go the the project's root directory and execute the command:
 
@@ -63,11 +69,23 @@ Once your project has been generated with the template, go the the project's roo
 
 To start the application. The front end URL will be: http://localhost:3000. If you enabled Swagger during the template creation, you can access it going to the following URL: http://localhost:5000/swagger.
 
-To terminate the application, go the the project's root directory and run:
+It comes with a default `User` entity so that you can test the CRUD operations right out of the box by either using Swagger or an API platform, such as [Postman](https://www.postman.com/).
 
-`docker-compose -f docker-compose-development.yml down`
+You can also do CRUD operations using the UI (React). There is only one user component added to represent how the front end communicates with the back end. There are no custom CSS styles.
 
-## To do
+To terminate the application and delete the created images, containers, networks and volumes, hit `Ctrl+C` on your running terminal to stop the application, go the the project's root directory and run:
+
+`docker-compose -f docker-compose-development.yml down -v`
+
+## Adding Migrations
+
+To add a migration, go to the project's root directory and run:
+
+`dotnet ef migrations add <migration-name> -p .\src\Infrastructure\ -s .\src\API\ -o .\Data\Migrations\`
+
+No need to install the [dotnet-ef tool](https://docs.microsoft.com/en-us/ef/core/cli/dotnet#installing-the-tools), because it is already in the `.\.config\dotnet-tools.json` manifest file.
+
+## To Do
 
 - Currently, the project does not contain a unit tests project. This will be added soon.
 - I will also add Angular support and an option to configure different databases.

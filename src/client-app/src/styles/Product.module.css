@@ -1,0 +1,104 @@
+.product {
+    justify-content: center;
+    align-items: center;
+}
+
+.product,
+.product .product__products-section,
+.product .product__products-section .product__product-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.product .product__products-section,
+.product .product__products-section .product__product-container,
+.product .product__products-section input {
+    border: 1px solid var(--light-grey);
+    border-radius: 10px;
+}
+
+.product .product__products-section,
+.product .product__products-section .product__product-container p:first-of-type,
+.product .product__products-section .product__product-container p:last-of-type,
+.product .product__products-section label {
+    background-color: white;
+    width: fit-content;
+}
+
+.product .product__products-section {
+    padding: 30px;
+    padding-bottom: 40px;
+    box-shadow: 2px 2px 10px #cac9c9;
+    margin-bottom: 60px;
+}
+
+.product .product__products-section h2,
+.product .product__products-section .product__product-container p:first-of-type,
+.product .product__products-section .product__product-container p:last-of-type {
+    text-align: center;
+}
+
+.product .product__products-section h2 {
+    font-size: 1.7rem;
+    margin: 0;
+    margin-bottom: 30px;
+}
+
+.product .product__products-section .product__product-container {
+    margin-bottom: 50px;
+}
+
+.product .product__products-section .product__product-container:last-of-type {
+    margin-bottom: 0;
+}
+
+.product .product__products-section .product__product-container p:first-of-type {
+    transform: translateY(-15px);
+}
+
+.product .product__products-section .product__product-container p {
+    margin: 2px 10px;
+}
+
+.product .product__products-section .product__product-container p:last-of-type {
+    transform: translateY(11px);
+}
+
+.product .product__products-section .product-section__no-products {
+    color: red;
+    transform: translateY(-30px);
+}
+
+.product .product__products-section .product-section__no-products,
+.product .product__products-section .product-section__loading,
+.product .product__products-section button {
+    align-self: center;
+}
+
+.product .product__products-section input {
+    margin-bottom: 40px;
+}
+
+.product .product__products-section input,
+.product .product__products-section button {
+    padding: 10px;
+}
+
+.product .product__products-section label {
+    transform: translate(10px, 11px);
+}
+
+.product .product__products-section button {
+    margin-top: 30px;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    background-color: blue;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.product .product__products-section button:hover {
+    background-color: #0505ce;
+}

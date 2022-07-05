@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
-
-namespace API.Controllers;
+namespace CleanArchRepoTemplate.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

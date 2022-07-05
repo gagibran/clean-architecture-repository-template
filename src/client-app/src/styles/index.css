@@ -1,0 +1,20 @@
+:root {
+    --light-grey: #817e7e57;
+    --faded-blue: #e1e8ecbe;
+}
+
+body {
+    background-color: var(--faded-blue);
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    margin: 0;
+}
+
+body, input {
+    font-family: Verdana, sans-serif;
+}
