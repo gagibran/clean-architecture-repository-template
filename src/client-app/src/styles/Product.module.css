@@ -1,33 +1,50 @@
 .product {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.product .product__products-section {
-    border: 1px solid var(--light-grey);
-    border-radius: 10px;
-    padding: 30px;
-    padding-bottom: 40px;
-    background-color: white;
-    box-shadow: 2px 2px 10px #cac9c9;
-    margin-bottom: 60px;
+.product,
+.product .product__products-section,
+.product .product__products-section .product__product-container {
     display: flex;
     flex-direction: column;
+}
+
+.product .product__products-section,
+.product .product__products-section .product__product-container,
+.product .product__products-section input {
+    border: 1px solid var(--light-grey);
+    border-radius: 10px;
+}
+
+.product .product__products-section,
+.product .product__products-section .product__product-container p:first-of-type,
+.product .product__products-section .product__product-container p:last-of-type,
+.product .product__products-section label {
+    background-color: white;
+    width: fit-content;
+}
+
+.product .product__products-section {
+    padding: 30px;
+    padding-bottom: 40px;
+    box-shadow: 2px 2px 10px #cac9c9;
+    margin-bottom: 60px;
+}
+
+.product .product__products-section h2,
+.product .product__products-section .product__product-container p:first-of-type,
+.product .product__products-section .product__product-container p:last-of-type {
+    text-align: center;
 }
 
 .product .product__products-section h2 {
     font-size: 1.7rem;
     margin: 0;
-    text-align: center;
     margin-bottom: 30px;
 }
 
 .product .product__products-section .product__product-container {
-    display: grid;
-    border: 1px solid var(--light-grey);
-    border-radius: 10px;
     margin-bottom: 50px;
 }
 
@@ -37,9 +54,6 @@
 
 .product .product__products-section .product__product-container p:first-of-type {
     transform: translateY(-15px);
-    background-color: white;
-    width: fit-content;
-    text-align: center;
 }
 
 .product .product__products-section .product__product-container p {
@@ -48,40 +62,37 @@
 
 .product .product__products-section .product__product-container p:last-of-type {
     transform: translateY(11px);
-    background-color: white;
-    width: fit-content;
-    text-align: center;
 }
 
 .product .product__products-section .product-section__no-products {
-    align-self: center;
     color: red;
     transform: translateY(-30px);
 }
 
-.product .product__products-section .product-section__loading {
+.product .product__products-section .product-section__no-products,
+.product .product__products-section .product-section__loading,
+.product .product__products-section button {
     align-self: center;
 }
 
 .product .product__products-section input {
-    border: 1px solid var(--light-grey);
-    border-radius: 10px;
-    padding: 10px;
     margin-bottom: 40px;
 }
+
+.product .product__products-section input,
+.product .product__products-section button {
+    padding: 10px;
+}
+
 .product .product__products-section label {
     transform: translate(10px, 11px);
-    background-color: white;
-    width: fit-content;
 }
 
 .product .product__products-section button {
     margin-top: 30px;
     border: none;
     border-radius: 20px;
-    padding: 10px;
     width: 100%;
-    align-self: center;
     background-color: blue;
     color: white;
     font-size: 1.3rem;

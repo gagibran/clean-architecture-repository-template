@@ -12,20 +12,7 @@ interface Props {
 
 const DeleteProductById = ({ fetchProductsAsync }: Props) => {
     const [isProductDeleted, setIsProductDeleted] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
     const [productState, productDispatcher] = useCreateProduct();
-
-    const getProductElement = () => {
-        if (isLoading) {
-            return <p className={styles['product-section__loading']}>Loading...</p>
-        } if (!isProductDeleted) {
-            return (
-                <p className={styles['product-section__no-products']}>
-                    Incorrect ID format or product does not exist.
-                </p>
-            );
-        }
-    };
 
     const getProductToBeDeletedIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
         productDispatcher({
@@ -35,19 +22,18 @@ const DeleteProductById = ({ fetchProductsAsync }: Props) => {
     };
 
     const deleteProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
-        formEvent.preventDefault();
-        setIsProductDeleted(false);
-        setIsLoading(true);
-        if (!productState.productId) {
-            return;
+        try {
+            formEvent.preventDefault();
+            if (!productState.productId) {
+                return;
+            }
+            await deleteByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, productState.productId);
+            setIsProductDeleted(true);
+            await fetchProductsAsync();
+        } catch (error) {
+            console.log(error);
+            setIsProductDeleted(false);
         }
-        const status = await deleteByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, productState.productId);
-        setIsLoading(false);
-        if (!status || status > 400) {
-            return;
-        }
-        await fetchProductsAsync();
-        setIsProductDeleted(true);
     };
 
     return (
@@ -63,7 +49,11 @@ const DeleteProductById = ({ fetchProductsAsync }: Props) => {
                 onChange={getProductToBeDeletedIdHandlerAsync}
                 required
             />
-            {getProductElement()}
+            {!isProductDeleted ?
+            <p className={styles['product-section__no-products']}>
+                Incorrect ID format or product does not exist.
+            </p> :
+            null}
             <button type="submit">Delete Product</button>
         </form>
     );

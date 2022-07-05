@@ -13,11 +13,12 @@ const ProductsContainer = () => {
     const [products, setProducts] = useState<ProductEntity[]>([]);
 
     const fetchProductsAsync = useCallback(async () => {
-        const foundProducts = await getAllAsync<ProductEntity>(PRODUCT_API_BASE_URL);
-        if (!foundProducts) {
-            return;
+        try {
+            const foundProducts = await getAllAsync<ProductEntity>(PRODUCT_API_BASE_URL);
+            setProducts(foundProducts);
+        } catch (error) {
+            console.log(error);
         }
-        setProducts(foundProducts);
     }, []);
 
     useEffect(() => {

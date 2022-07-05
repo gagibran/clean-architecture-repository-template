@@ -1,37 +1,30 @@
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useRef } from 'react';
 import useFindProductById from '../hooks/useFindProductById';
 import Product from './Product';
 import styles from '../styles/Product.module.css';
 
 const GetProductById = () => {
-    const [isFirstSubmit, setIsFirstSubmit] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
-    const [product, fetchProductByIdAsync] = useFindProductById();
+    const [doesProductExist, product, findProductByIdAsync] = useFindProductById();
     const getProductIdByRef = useRef<HTMLInputElement>(null);
 
     const getProductElement = () => {
-        if (isLoading) {
-            return <p className={styles['product-section__loading']}>Loading...</p>
-        } else if (product?.id) {
-            return <Product product={product} />;
-        } else if (!product && !isFirstSubmit) {
+        if (!doesProductExist) {
             return (
                 <p className={styles['product-section__no-products']}>
                     Incorrect ID format or product does not exist.
                 </p>
             );
+        } else if (product) {
+            return <Product product={product} />;
         }
     };
 
     const getProductSubmitHandlerAsync = async(formEvent: FormEvent) => {
         formEvent.preventDefault();
-        setIsFirstSubmit(false);
-        setIsLoading(true);
         if (!getProductIdByRef.current) {
             return;
         }
-        await fetchProductByIdAsync(getProductIdByRef.current?.value)
-        setIsLoading(false);
+        await findProductByIdAsync(getProductIdByRef.current?.value)
     };
 
     return (

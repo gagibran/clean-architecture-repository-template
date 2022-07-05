@@ -12,47 +12,43 @@ interface Props {
 }
 
 const UpdateProductById = ({ fetchProductsAsync }: Props) => {
-    const [isProductIdInputNotTouched, setIsProductIdInputNotTouched] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isProductUpdated, setIsProductUpdated] = useState(true);
     const [productState, productDispatcher] = useCreateProduct();
-    const [productToBeUpdated, fetchProductToBeUpdatedByIdAsync] = useFindProductById();
+    const [doesProductToBeUpdatedExist, productToBeUpdated, findProductToBeUpdatedByIdAsync] = useFindProductById();
     const productNameRef = useRef<HTMLInputElement>(null);
     const productPriceRef = useRef<HTMLInputElement>(null);
 
-    const getProductElement = () => {
-        if (isLoading) {
-            return <p className={styles['product-section__loading']}>Loading...</p>
-        } else if (!productToBeUpdated && !isProductIdInputNotTouched) {
-            return (
-                <p className={styles['product-section__no-products']}>
-                    Incorrect ID format or product does not exist.
-                </p>
-            );
-        }
-    };
-
     const getProductToBeUpdatedByIdHandlerAsync = async (inputEvent: FormEvent<HTMLInputElement>) => {
-        setIsProductIdInputNotTouched(false);
-        setIsLoading(true);
         productDispatcher({
             type: AvailableProductActions.SetId,
             payload: { productId: inputEvent.currentTarget.value }
         });
-        await fetchProductToBeUpdatedByIdAsync(inputEvent.currentTarget.value);
-        setIsLoading(false);
+        await findProductToBeUpdatedByIdAsync(inputEvent.currentTarget.value);
     };
 
     const updateProductSubmitHandlerAsync = async (formEvent: FormEvent) => {
-        formEvent.preventDefault();
-        if (!productNameRef.current || !productPriceRef.current || !productState.productId) {
-            return;
+        try {
+            formEvent.preventDefault();
+            if (!productNameRef.current
+                || !productPriceRef.current
+                || !productState.productId) {
+                return;
+            }
+            const updatedProduct = {
+                name: productNameRef.current.value,
+                price: +productPriceRef.current.value
+            };
+            await updateByIdAsync<ProductEntity>(
+                PRODUCT_API_BASE_URL,
+                updatedProduct,
+                productState.productId
+            );
+            setIsProductUpdated(true);
+            await fetchProductsAsync();
+        } catch (error) {
+            console.log(error);
+            setIsProductUpdated(false);
         }
-        const updatedProduct = {
-            name: productNameRef.current.value,
-            price: +productPriceRef.current.value
-        };
-        await updateByIdAsync<ProductEntity>(PRODUCT_API_BASE_URL, updatedProduct, productState.productId);
-        await fetchProductsAsync();
     };
 
     return (
@@ -68,7 +64,11 @@ const UpdateProductById = ({ fetchProductsAsync }: Props) => {
                 onChange={getProductToBeUpdatedByIdHandlerAsync}
                 required
             />
-            {getProductElement()}
+            {!doesProductToBeUpdatedExist ?
+            <p className={styles['product-section__no-products']}>
+                Incorrect ID format or product does not exist.
+            </p> :
+            null}
             <label htmlFor="productNameUpdate">Product Name</label>
             <input
                 type="text"
@@ -86,6 +86,11 @@ const UpdateProductById = ({ fetchProductsAsync }: Props) => {
                 defaultValue={productToBeUpdated?.price}
                 required
             />
+            {!isProductUpdated
+            ? <p className={styles['product-section__no-products']}>
+                Product could not be updated.
+            </p>
+            : null}
             <button type="submit">Update Product</button>
         </form>
     );
