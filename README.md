@@ -10,6 +10,8 @@ It uses PostgreSQL 14, React 18 (with TypeScript) and .NET 6 and it comes with a
 
 This app was developed using Docker version 20.10.16 and Docker Compose version 1.29.2.
 
+It also uses xUnit and Moq as testing frameworks on the back end.
+
 Give it a star if you like it! Feel free to contribute.
 
 ## Table of contents

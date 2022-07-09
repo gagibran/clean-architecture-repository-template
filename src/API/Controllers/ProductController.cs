@@ -4,18 +4,21 @@ namespace CleanArchRepoTemplate.API.Controllers;
 
 public class ProductController : BaseController
 {
+    private readonly ILogger<ProductController> _logger;
 #if (configureUnitOfWork)
     private readonly IUnitOfWork _unitOfWork;
 
-    public ProductController(IUnitOfWork unitOfWork)
+    public ProductController(ILogger<ProductController> logger, IUnitOfWork unitOfWork)
     {
+        _logger = logger
         _unitOfWork = unitOfWork;
     }
 #else
     private readonly IProductRepository _products;
 
-    public ProductController(IProductRepository products)
+    public ProductController(ILogger<ProductController> logger, IProductRepository products)
     {
+        _logger = logger;
         _products = products;
     }
 #endif
@@ -33,6 +36,7 @@ public class ProductController : BaseController
 #else
         IEnumerable<Product> existingProducts = await _products.GetAllAsync();
 #endif
+        _logger.LogInformation($"Existing products found: {existingProducts}.");
         return Ok(existingProducts);
     }
 
@@ -54,8 +58,10 @@ public class ProductController : BaseController
 #endif
         if (existingProduct is null)
         {
+            _logger.LogError($"A product with the ID {id} does not exist.");
             return NotFound();
         }
+        _logger.LogInformation($"Existing product found: {existingProduct}.");
         return Ok(existingProduct);
     }
 
@@ -88,6 +94,7 @@ public class ProductController : BaseController
         await _products.CreateAsync(product);
         await _products.SaveAsync();
 #endif
+        _logger.LogInformation($"The product {product} was successfully created.");
         return CreatedAtAction(nameof(GetProductByIdAsync), new { id = product.Id }, product);
     }
 
@@ -116,6 +123,7 @@ public class ProductController : BaseController
         Product? existingProduct = await _unitOfWork.Products.GetByIdAsync(id);
         if (existingProduct is null)
         {
+            _logger.LogInformation($"A product with the ID {id} does not exist.");
             return NotFound();
         }
         existingProduct.Name = product.Name;
@@ -127,6 +135,7 @@ public class ProductController : BaseController
         Product? existingProduct = await _products.GetByIdAsync(id);
         if (existingProduct is null)
         {
+            _logger.LogInformation($"A product with the ID {id} does not exist.");
             return NotFound();
         }
         existingProduct.Name = product.Name;
@@ -135,6 +144,7 @@ public class ProductController : BaseController
         _products.UpdateProduct(existingProduct);
         await _products.SaveAsync();
 #endif
+        _logger.LogInformation($"The product with the ID {id} was successfully updated to {product}.");
         return NoContent();
     }
 
@@ -151,6 +161,7 @@ public class ProductController : BaseController
         Product? existingProduct = await _unitOfWork.Products.GetByIdAsync(id);
         if (existingProduct is null)
         {
+            _logger.LogInformation($"A product with the ID {id} does not exist.");
             return NotFound();
         }
         _unitOfWork.Products.Delete(existingProduct);
@@ -159,11 +170,13 @@ public class ProductController : BaseController
         Product? existingProduct = await _products.GetByIdAsync(id);
         if (existingProduct is null)
         {
+            _logger.LogInformation($"A product with the ID {id} does not exist.");
             return NotFound();
         }
         _products.Delete(existingProduct);
         await _products.SaveAsync();
 #endif
+        _logger.LogInformation($"The product with the ID {id} was successfully deleted.");
         return NoContent();
     }
 }
