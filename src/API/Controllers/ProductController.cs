@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CleanArchRepoTemplate.Core.Interfaces;
 
 namespace CleanArchRepoTemplate.API.Controllers;
@@ -10,7 +11,7 @@ public class ProductController : BaseController
 
     public ProductController(ILogger<ProductController> logger, IUnitOfWork unitOfWork)
     {
-        _logger = logger
+        _logger = logger;
         _unitOfWork = unitOfWork;
     }
 #else
@@ -36,7 +37,9 @@ public class ProductController : BaseController
 #else
         IEnumerable<Product> existingProducts = await _products.GetAllAsync();
 #endif
-        _logger.LogInformation($"Existing products found: {existingProducts}.");
+        _logger.LogInformation(
+            $"Existing products found: {JsonSerializer.Serialize(existingProducts)}."
+        );
         return Ok(existingProducts);
     }
 
@@ -61,7 +64,9 @@ public class ProductController : BaseController
             _logger.LogError($"A product with the ID {id} does not exist.");
             return NotFound();
         }
-        _logger.LogInformation($"Existing product found: {existingProduct}.");
+        _logger.LogInformation(
+            $"Existing product found: {JsonSerializer.Serialize(existingProduct)}."
+        );
         return Ok(existingProduct);
     }
 
@@ -94,7 +99,9 @@ public class ProductController : BaseController
         await _products.CreateAsync(product);
         await _products.SaveAsync();
 #endif
-        _logger.LogInformation($"The product {product} was successfully created.");
+        _logger.LogInformation(
+            $"The product {JsonSerializer.Serialize(product)} was successfully created."
+        );
         return CreatedAtAction(nameof(GetProductByIdAsync), new { id = product.Id }, product);
     }
 
@@ -123,7 +130,7 @@ public class ProductController : BaseController
         Product? existingProduct = await _unitOfWork.Products.GetByIdAsync(id);
         if (existingProduct is null)
         {
-            _logger.LogInformation($"A product with the ID {id} does not exist.");
+            _logger.LogError($"A product with the ID {id} does not exist.");
             return NotFound();
         }
         existingProduct.Name = product.Name;
@@ -135,7 +142,7 @@ public class ProductController : BaseController
         Product? existingProduct = await _products.GetByIdAsync(id);
         if (existingProduct is null)
         {
-            _logger.LogInformation($"A product with the ID {id} does not exist.");
+            _logger.LogError($"A product with the ID {id} does not exist.");
             return NotFound();
         }
         existingProduct.Name = product.Name;
@@ -144,7 +151,9 @@ public class ProductController : BaseController
         _products.UpdateProduct(existingProduct);
         await _products.SaveAsync();
 #endif
-        _logger.LogInformation($"The product with the ID {id} was successfully updated to {product}.");
+        _logger.LogInformation(
+            $"The product with the ID {id} was successfully updated to {JsonSerializer.Serialize(product)}."
+        );
         return NoContent();
     }
 
