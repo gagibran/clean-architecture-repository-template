@@ -1,4 +1,4 @@
-[![Build, Test And Deploy](https://github.com/gagibran/clean-architecture-repository-template/workflows/%20Build%20Test%20And%20Deploy/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
+[![Build, Test And Deploy](https://github.com/gagibran/clean-architecture-repository-template/workflows/Build%20Test%20And%20Deploy/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
 [![NuGet Version](https://img.shields.io/nuget/v/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
 
