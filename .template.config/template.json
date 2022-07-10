@@ -22,6 +22,7 @@
   "description": "Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.",
   "symbols": {
     "solutionName" : {
+      "isRequired": true,
       "type": "parameter",
       "datatype": "text",
       "description": "Sets the solution name.",
@@ -32,13 +33,13 @@
       "type": "parameter",
       "datatype": "bool",
       "description": "Enables Swagger.",
-      "defaultValue": "true"
+      "defaultValue": "false"
     },
     "configureUnitOfWork": {
       "type": "parameter",
       "datatype": "bool",
       "description": "Configures the unit of work pattern",
-      "defaultValue": "true"
+      "defaultValue": "false"
     }
   },
   "sources": [

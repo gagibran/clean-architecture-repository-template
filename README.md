@@ -1,4 +1,4 @@
-[![Clean Architecture Build And Deploy](https://github.com/gagibran/clean-architecture-repository-template/workflows/Clean%20Architecture%20Build%20And%20Deploy/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
+[![Build, Test And Deploy](https://github.com/gagibran/clean-architecture-repository-template/workflows/%20Build%20Test%20And%20Deploy/badge.svg)](https://github.com/gagibran/clean-architecture-repository-template/actions)
 [![NuGet Version](https://img.shields.io/nuget/v/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Gagibran.CleanArchRepo.Template.svg)](https://www.nuget.org/packages/Gagibran.CleanArchRepo.Template)
 
@@ -46,15 +46,15 @@ Once installed, to use the template, simply run the command:
 
 `dotnet new cleanarchrepo -o <output-directory-name> -s <solution-name>`
 
-A project clean architecture project will be created with Swagger support and the unit of work pattern by default.
+A clean architecture project will be created without Swagger support and without the unit of work pattern by default.
 
 Note that the parameter `-s`, or `--solutionName` **is a required parameter**.
 
 Alternatively, run the command without the `-o` parameter in order to create the template outside of a containing output directory.
 
-In order to disabled these options, the following flags are available: `-e` or `--enableSwagger` and `-c` or `--configureUnitOfWork`. Example:
+In order to change the default options, the following flags are available: `-e` or `--enableSwagger` and `-c` or `--configureUnitOfWork`. Example:
 
-`dotnet new cleanarchrepo -o <project-name> -e false -c false`
+`dotnet new cleanarchrepo -o <output-directory-name> -s <solution-name> -e true -c true`
 
 Use `dotnet new cleanarchrepo --help` to see the list of parameters and more information.
 

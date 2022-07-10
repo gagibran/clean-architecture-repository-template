@@ -1,12 +1,12 @@
-name: Clean Architecture Build And Deploy
+name: Build Test And Deploy
 
 on:
   - pull_request
   - push
 
 jobs:
-  dotnet_build:
-    name: Build .NET 6 Projects
+  dotnet_build_and_test:
+    name: Build And Test .NET 6 Projects
     runs-on: ubuntu-latest
 
     steps:
@@ -24,9 +24,12 @@ jobs:
     - name: Build .NET
       run: dotnet build --no-restore
 
-  nodejs_build:
-    needs: dotnet_build
-    name: Build Node.js 16.x Projects
+    - name: Run .NET Tests
+      run: dotnet test --no-restore --verbosity normal
+
+  nodejs_build_and_test:
+    needs: dotnet_build_and_test
+    name: Build And Test Node.js 16.x Projects
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -48,7 +51,7 @@ jobs:
       run: npm run build
 
   deploy-to-nuget:
-    needs: nodejs_build
+    needs: nodejs_build_and-_est
     name: Publish Template to NuGet
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
