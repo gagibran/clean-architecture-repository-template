@@ -50,8 +50,8 @@ jobs:
     - name: Build Node.js
       run: npm run build
 
-  deploy-to-nuget:
-    needs: nodejs_build_and-_est
+  deploy_to_nuget:
+    needs: nodejs_build_and_test
     name: Publish Template to NuGet
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
