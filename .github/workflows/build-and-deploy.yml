@@ -1,4 +1,4 @@
-name: Clean Architecture Build
+name: Clean Architecture Build And Deploy
 
 on:
   - pull_request
@@ -46,3 +46,24 @@ jobs:
 
     - name: Build Node.js
       run: npm run build
+
+  deploy-to-nuget:
+    needs: nodejs_build
+    name: Publish Template to NuGet
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout To Branch
+      uses: actions/checkout@v3
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: '5.x'
+
+    - name: Package The Template
+      run: nuget pack CleanArchRepoTemplate.nuspec -NoDefaultExcludes
+
+    - name: Publish Template To NuGet
+      run: nuget push Gagibran.CleanArchRepo.Template.*.nupkg -Source https://api.nuget.org/v3/index.json ${{ secrets.NUGET_API_KEY }} -SkipDuplicate
