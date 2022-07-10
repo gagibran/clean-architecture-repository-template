@@ -88,7 +88,6 @@ No need to install the [dotnet-ef tool](https://docs.microsoft.com/en-us/ef/core
 
 ## To Do
 
-- Currently, the project does not contain a unit tests project. This will be added soon.
 - I will also add Angular support and an option to configure different databases.
 - I will try to get the project to work with HTTPS on Docker.
 - Finally, I will be adding a production configuration with Dockerfiles and a production Docker Compose file.

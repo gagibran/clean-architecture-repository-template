@@ -5,7 +5,7 @@
     <authors>Gabriel Alvares Gibran</authors>
     <language>en-US</language>
     <title>Clean Architecture With Repository Pattern</title>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/gagibran/clean-architecture-repository-template</projectUrl>
     <repository type="git" url="https://github.com/gagibran/clean-architecture-repository-template.git" branch="main" />
@@ -16,7 +16,7 @@
       Creates a clean architecture project with .NET 6, Docker Compose, PostgreSQL and React using the repository pattern and, optionally, unit of work.
     </summary>
     <releaseNotes>
-      Merged two GitHub workflows into one YAML file.
+      Added unit tests to the front end and back end with xUnit and FluentAssertions.
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
